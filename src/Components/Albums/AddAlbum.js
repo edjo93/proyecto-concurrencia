@@ -2,6 +2,8 @@ import React from 'react'
 
 function AddAlbum() {
     return (
+
+
         <div className="col d-flex justify-content-center" style={{ marginTop: "200px" }}>
             <form >
                 <div class="form-group row">
