@@ -1,28 +1,72 @@
-import React from 'react'
+import React from "react";
+import { AvForm, AvField, AvInput } from "availity-reactstrap-validation";
+import Image from "react-bootstrap/Image";
 
-function AddAlbum() {
-    return (
-        <div className="col d-flex justify-content-center" style={{ marginTop: "200px" }}>
-            <form >
-                <div class="form-group row">
-                    <div class="row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label" style={{ marginRight: "0px" }}>Email..... </label>
-                    </div>
-                    <div class="col-sm-9">
-                        <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label" style={{ marginRight: "-5px" }}>Password</label>
-                    </div>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" />
-                    </div>
-                </div>
-            </form>
-        </div>
-    );
+import {
+  Input,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  Label,
+  Container,
+  Row,
+  Col,
+} from "reactstrap";
+
+import { Confirm } from "./Confirm";
+import "../ConfirmStyle.css";
+
+function AddAlbum(values) {
+  return (
+    <Container className="text-white">
+      <AvForm>
+        <Row>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <AvField
+              name="new"
+              label="nombre"
+              type="text"
+              validate={{
+                required: { value: true, errorMessage: "campo requerido" },
+              }}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <AvField
+              name="descripcion"
+              label="Artista"
+              type="text"
+              validate={{
+                required: { value: true, errorMessage: "campo requerido" },
+              }}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <AvField name="path" label="url imagen" type="text" />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Image
+              src="https://upload.wikimedia.org/wikipedia/en/e/eb/Money_1973.jpg"
+              thumbnail
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <Button color="success">guardar</Button>
+          </Col>
+        </Row>
+      </AvForm>
+    </Container>
+  );
 }
 
 export default AddAlbum;
