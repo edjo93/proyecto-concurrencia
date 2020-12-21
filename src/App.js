@@ -18,13 +18,13 @@ import { Nav } from 'react-bootstrap';
 
 // eslint-disable-next-line 
 class App extends Component {
-  state = {web3: null, accounts: null, contract: null, albumAdresses:[]};
+  state = { web3: null, accounts: null, contract: null, albumAdresses: [] };
 
-  addAlbumAddresses = async (addressAdd)=>{
+  addAlbumAddresses = async (addressAdd) => {
     this.state.albumAdresses.push(addressAdd)
   }
-  
-  getAlbumAddresses = async ()=>{
+
+  getAlbumAddresses = async () => {
     return this.state.albumAdresses
   }
 
@@ -83,8 +83,8 @@ class App extends Component {
           </header>
           <Switch>
             <Home path="/home" />
-            <Albums path="/Albums" addressesCall={this.getAlbumAddresses.bind(this)}/>
-            <AddAlbum path="/AddAlbum" addressesCall={this.addAlbumAddresses.bind(this)}/>
+            <Albums path="/Albums" addressesCall={this.getAlbumAddresses.bind(this)} />
+            <AddAlbum path="/AddAlbum" addressesCall={this.addAlbumAddresses.bind(this)} />
             <Login path="/login" />
           </Switch>
           <Footer path="/" />

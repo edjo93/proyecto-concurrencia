@@ -33,7 +33,7 @@ function Navbar() {
         // </div>
         <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
             <img width="50px" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-icon-marilyn-scott-0.png" alt="logo"></img>
-            <a class="navbar-brand" style={{ marginLeft: "10px" }} href="/">Spotify</a>
+            <a class="navbar-brand" style={{ marginLeft: "10px" }} href="/Home">Spotify</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
