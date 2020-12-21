@@ -24,6 +24,10 @@ class App extends Component {
     this.state.albumAdresses.push(addressAdd)
   }
   
+  getAlbumAddresses = async ()=>{
+    return this.state.albumAdresses
+  }
+
   componentDidMount = async () => {
     try {
       // Get network provider and web3 mainInstance.
@@ -53,20 +57,20 @@ class App extends Component {
   };
 
   initiate = async () => {
-    const { accounts, contract, web3,albumAdresses } = this.state;
-    console.log("account: ", accounts[0]);
-    console.log("methods", contract.methods);
-    // // await contract.methods.setData("War", "Demon Hunter", "https://upload.wikimedia.org/wikipedia/en/c/cb/DemonHunter_War.jpg").send({ from: accounts[0] });
-    // let response  = await contract.methods.album().call();
-    // // Creating new contracts
-    // //let newInstance = await new web3.eth.Contract(AlbumContract.abi).deploy({data: AlbumContract.bytecode}).send({"from":accounts[0]});
-    // let newInstance = await new web3.eth.Contract(AlbumContract.abi,"0x5f5518D4e8a4AAe8eab848f1999d9858067619E1");
-    // console.log(newInstance);
-    // // await newInstance.methods.setData("Peace", "Demon Hunter", "https://target.scene7.com/is/image/Target/GUEST_8eb42664-16dc-4f03-9e71-dadadbf1abe4?wid=488&hei=488&fmt=pjpeg").send({"from":accounts[0]});
-    // let response2 = await newInstance.methods.album().call();
-    // // console.log("contract: ", response);
+    // const { accounts, contract, web3,albumAdresses } = this.state;
+    // console.log("account: ", accounts[0]);
+    // console.log("methods", contract.methods);
+    // // // await contract.methods.setData("War", "Demon Hunter", "https://upload.wikimedia.org/wikipedia/en/c/cb/DemonHunter_War.jpg").send({ from: accounts[0] });
+    // // let response  = await contract.methods.album().call();
+    // // // Creating new contracts
+    // // //let newInstance = await new web3.eth.Contract(AlbumContract.abi).deploy({data: AlbumContract.bytecode}).send({"from":accounts[0]});
+    // // let newInstance = await new web3.eth.Contract(AlbumContract.abi,"0x5f5518D4e8a4AAe8eab848f1999d9858067619E1");
+    // // console.log(newInstance);
+    // // // await newInstance.methods.setData("Peace", "Demon Hunter", "https://target.scene7.com/is/image/Target/GUEST_8eb42664-16dc-4f03-9e71-dadadbf1abe4?wid=488&hei=488&fmt=pjpeg").send({"from":accounts[0]});
+    // // let response2 = await newInstance.methods.album().call();
+    // // // console.log("contract: ", response);
 
-    console.log(albumAdresses);
+    // console.log(albumAdresses);
   };
 
 
@@ -79,7 +83,7 @@ class App extends Component {
           </header>
           <Switch>
             <Home path="/home" />
-            <Albums path="/Albums" />
+            <Albums path="/Albums" addressesCall={this.getAlbumAddresses.bind(this)}/>
             <AddAlbum path="/AddAlbum" addressesCall={this.addAlbumAddresses.bind(this)}/>
             <Login path="/login" />
           </Switch>
