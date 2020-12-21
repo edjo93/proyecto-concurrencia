@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
-import Web3 from 'web3';
+import getWeb3 from "./getWeb3";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './Components/Navbar/Navbar.js';
 import MainMenu from './Components/MainMenu/MainMenu.js';
@@ -13,22 +13,36 @@ import { Nav } from 'react-bootstrap';
 
 
 class App extends Component {
-  componentWillMount() {
-    this.loadBlockChainData()
-    console.log(this.state.account);
-  }
+  state = {web3: null, accounts: null, contract: null };
 
-  async loadBlockChainData() {
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-    const network = await web3.eth.net.getNetworkType();
-    const accounts = await web3.eth.getAccounts();
-    this.setState({ account: accounts[0] });
-  }
+  componentDidMount = async () => {
+    try {
+      // Get network provider and web3 mainInstance.
+      const web3 = await getWeb3();
 
-  constructor(props) {
-    super(props);
-    this.state = { account: '' }
-  }
+      // Use web3 to get the user's accounts.
+      const accounts = await web3.eth.getAccounts();
+
+      // Get the contract mainInstance.
+      const networkId = await web3.eth.net.getId();
+      const deployedNetwork = AlbumContract.networks[networkId];
+      const mainInstance = new web3.eth.Contract(
+        AlbumContract.abi,
+        deployedNetwork && deployedNetwork.address,
+      );
+      console.log(mainInstance);
+      // Set web3, accounts, and contract to the state, and then proceed with an
+      // example of interacting with the contract's methods.
+      this.setState({ web3, accounts, contract: mainInstance });
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      alert(
+        `Failed to load web3, accounts, or contract. Check console for details.`,
+      );
+      console.error(error);
+    }
+  };
+
 
   render() {
     return (
