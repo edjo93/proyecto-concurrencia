@@ -4,9 +4,12 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './Components/Navbar/Navbar.js';
-import MainMenu from './Components/MainMenu/MainMenu.js';
+import Albums from './Components/Albums/Albums.js';
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import AddAlbum from './Components/Albums/AddAlbum.js';
 import Login from './Components/Login/Login.js';
+import Footer from './Components/Footer/Footer.js';
+import Home from './Components/Home/Home.js'
 import { Nav } from 'react-bootstrap';
 
 
@@ -32,20 +35,20 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" >
-        <header>
-
-          <Navbar />
-        </header>
-        <div><MainMenu /></div>
-        {/* <AddAlbum /> */}
-        {/* <Login /> */}
-        <footer class="site-footer">
-          <div id="footer-content">
-            <p>Copyright 2017 @ Domain - All Rights Reserved </p>
-          </div>
-        </footer>
-      </div >
+      <Router>
+        <div className="App" >
+          <header>
+            <Navbar path="/" />
+          </header>
+          <Switch>
+            <Home path="/home" />
+            <Albums path="/Albums" />
+            <AddAlbum path="/AddAlbum" />
+            <Login path="/login" />
+          </Switch>
+          <Footer path="/" />
+        </div >
+      </Router>
     );
   }
 }
