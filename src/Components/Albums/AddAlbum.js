@@ -18,6 +18,12 @@ import {
 import { Confirm } from "./Confirm";
 import "../ConfirmStyle.css";
 
+// this.createAlbum = async (e) => {
+//   e.preventDefault();
+//   console.log(e)
+//   // this.props.addressesCall("");
+// };
+
 function AddAlbum(values) {
   return (
     <Container className="text-white">
