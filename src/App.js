@@ -1,17 +1,18 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
 import getWeb3 from "./getWeb3";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './Components/Navbar/Navbar.js';
 import MainMenu from './Components/MainMenu/MainMenu.js';
-import AddAlbum from './Components/Albums/AddAlbum.js';
-import Login from './Components/Login/Login.js';
-import { Nav } from 'react-bootstrap';
+// import AddAlbum from './Components/Albums/AddAlbum.js';
+// import Login from './Components/Login/Login.js';
+// import { Nav } from 'react-bootstrap';
+import AlbumContract from "./contracts/Album.json";
 
 
 
-
+// eslint-disable-next-line 
 class App extends Component {
   state = {web3: null, accounts: null, contract: null };
 
@@ -24,16 +25,17 @@ class App extends Component {
       const accounts = await web3.eth.getAccounts();
 
       // Get the contract mainInstance.
-      const networkId = await web3.eth.net.getId();
+      const networkId = 5777;
       const deployedNetwork = AlbumContract.networks[networkId];
       const mainInstance = new web3.eth.Contract(
         AlbumContract.abi,
         deployedNetwork && deployedNetwork.address,
       );
+      mainInstance.address = "0x29CeB2984d28aEeA4467C278D990627878f52733"
       console.log(mainInstance);
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: mainInstance });
+      this.setState({ web3, accounts, contract: mainInstance }, this.initiate);
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -41,6 +43,19 @@ class App extends Component {
       );
       console.error(error);
     }
+  };
+
+  initiate = async () => {
+    const { accounts, contract, web3 } = this.state;
+    console.log("account: ", accounts[0]);
+    console.log("methods", contract.methods);
+    // await contract.methods.setData("War", "Demon Hunter", "https://upload.wikimedia.org/wikipedia/en/c/cb/DemonHunter_War.jpg").send({ from: accounts[0] });
+    let response  = await contract.methods.album().call();
+    let newInstance = new web3.eth.Contract(AlbumContract.abi)
+    await newInstance.contract.methods.setData("Peace", "Demon Hunter", "https://target.scene7.com/is/image/Target/GUEST_8eb42664-16dc-4f03-9e71-dadadbf1abe4?wid=488&hei=488&fmt=pjpeg")
+    let response2 = await newInstance.contract.album().call();
+    console.log("contract: ", response);
+    console.log("contract2: ", response2);
   };
 
 

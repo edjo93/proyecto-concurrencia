@@ -22,11 +22,11 @@ function Login() {
                             </label>
                             <div>
 
-                                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                            <a href="/" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                             </div>
                         </form>
                     </div>
-                    <a href="#" class="text-center new-account">Create an account </a>
+                    <a href="/" class="text-center new-account">Create an account </a>
                 </div>
             </div>
         </div>
