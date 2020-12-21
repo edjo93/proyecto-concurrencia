@@ -18,6 +18,11 @@ import {
 import { Confirm } from "./Confirm";
 import "../ConfirmStyle.css";
 
+createAlbum = async(e) =>{
+    e.preventDefault();
+    this.props.addressesCall("");
+};
+
 function AddAlbum(values) {
   return (
     <Container className="text-white">
@@ -61,7 +66,7 @@ function AddAlbum(values) {
         </Row>
         <Row>
           <Col sm="12" md={{ size: 6, offset: 3 }}>
-            <Button color="success">guardar</Button>
+            <Button color="success"  >guardar</Button>
           </Col>
         </Row>
       </AvForm>
