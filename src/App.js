@@ -12,6 +12,8 @@ import Footer from './Components/Footer/Footer.js';
 import Home from './Components/Home/Home.js'
 import AlbumContract from './contracts/Album.json';
 import { Nav } from 'react-bootstrap';
+import AddSong from './Components/Albums/AddSong';
+import Songs from './Components/Albums/Songs'
 
 
 
@@ -42,8 +44,7 @@ class App extends Component {
         AlbumContract.abi,
         deployedNetwork && deployedNetwork.address,
       );
-      mainInstance.address = "0x29CeB2984d28aEeA4467C278D990627878f52733"
-      console.log(mainInstance);
+      mainInstance.address = deployedNetwork.address;
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: mainInstance }, this.initiate);
@@ -77,14 +78,16 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App" >
+        <div className="App" style={{minHeight: "100vh"}}>
           <header>
             <Navbar path="/" />
           </header>
           <Switch>
             <Home path="/home" />
-            <Albums path="/Albums" addressesCall={this.getAlbumAddresses.bind(this)}/>
-            <AddAlbum path="/AddAlbum" addressesCall={this.addAlbumAddresses.bind(this)}/>
+            <Albums path="/Albums"/>
+            <Songs path="/Songs" />
+            <AddAlbum path="/AddAlbum"/>
+            <AddSong path="/AddSong"/>
             <Login path="/login" />
           </Switch>
           <Footer path="/" />

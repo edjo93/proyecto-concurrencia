@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "name": "Chilombo",
+        "artist": "Jhené Aiko",
+        "duration": "2: 93",
+        "image": "https://upload.wikimedia.org/wikipedia/en/1/15/Jhen%C3%A9_Aiko_-_Chilombo.png"
+    },
+    {
+        "id": 2,
+        "name": "Circles",
+        "artist": "Mac Miller",
+        "duration": "4:19",
+        "image": "https://www.ismorbo.com/wp-content/uploads/2020/01/esta-7.jpg"
+    },
+    {
+        "id": 3,
+        "name": "YHLQMDLG",
+        "artist": "Bad Bunny",
+        "duration": "5:10",
+        "image": "https://www.elquintobeatle.com/wp-content/uploads/2020/03/bad-bunny-yhlqmdlg-1.jpeg"
+    },
+    {
+        "id": 4,
+        "name": "evermore",
+        "artist": "Taylor Swift",
+        "duration": "4:01",
+        "image": "https://media.pitchfork.com/photos/5fd26f1b4a647c066bffa94a/1:1/w_320/Taylor-Swift-evermore.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Circles",
+        "artist": "Mac Miller",
+        "duration": "4:19",
+        "image": "https://www.ismorbo.com/wp-content/uploads/2020/01/esta-7.jpg"
+    },
+    {
+        "id": 6,
+        "name": "YHLQMDLG",
+        "artist": "Bad Bunny",
+        "duration": "5:10",
+        "image": "https://www.elquintobeatle.com/wp-content/uploads/2020/03/bad-bunny-yhlqmdlg-1.jpeg"
+    },
+    {
+        "id": 7,
+        "name": "evermore",
+        "artist": "Taylor Swift",
+        "duration": "4:01",
+        "image": "https://media.pitchfork.com/photos/5fd26f1b4a647c066bffa94a/1:1/w_320/Taylor-Swift-evermore.jpg"
+    },
+    {
+        "id": 8,
+        "name": "YHLQMDLG",
+        "artist": "Bad Bunny",
+        "duration": "5:10",
+        "image": "https://www.elquintobeatle.com/wp-content/uploads/2020/03/bad-bunny-yhlqmdlg-1.jpeg"
+    },
+    {
+        "id": 9,
+        "name": "evermore",
+        "artist": "Taylor Swift",
+        "duration": "4:01",
+        "image": "https://media.pitchfork.com/photos/5fd26f1b4a647c066bffa94a/1:1/w_320/Taylor-Swift-evermore.jpg"
+    }
+]
