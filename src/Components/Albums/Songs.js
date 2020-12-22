@@ -6,7 +6,7 @@ import getWeb3 from "../../getWeb3.js";
 import AlbumContract from '../../contracts/Album.json';
 
 
-class Albums extends Component {
+class Songs extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -16,7 +16,8 @@ class Albums extends Component {
             contract: null,
             albumAddresses: [],
             albumInstances: [],
-            albumsList: []
+            albumsList: [],
+            songsList:[]
         };
     }
     componentDidMount = async () => {
@@ -47,7 +48,7 @@ class Albums extends Component {
     };
 
     initiate = async () => {
-        const { accounts, web3, albumAddresses, albumsList } = this.state;
+        const { accounts, web3, albumAddresses, albumsList, songsList} = this.state;
         const blockNumber = await web3.eth.getBlockNumber();
         let transactions = [];
         for (let index = 1; index <= blockNumber; index++) {
@@ -68,19 +69,24 @@ class Albums extends Component {
         for (let index = 0; index < albumAddresses.length; index++) {
             if (albumAddresses[index] != null) {
                 let instance = await new web3.eth.Contract(AlbumContract.abi, albumAddresses[index]);
-                let album = await instance.methods.album().call();
-                let artist = await instance.methods.artist().call();
                 let image = await instance.methods.imageurl().call();
-                albumsList.push({
-                    "id": albumAddresses[index],
-                    "name": album,
-                    "artist": artist,
-                    "image": image
-                })
+                let songsCount = await instance.methods.songsCount().call()
+                for (let index = 1; index <= songsCount; index++) {
+                    let song =  await instance.methods.songs(index).call();
+                    console.log(song);
+                    songsList.push({
+                        "name": song["name"],
+                        "duration": song["duration"],
+                        "genre": song["genre"],
+                        "image": image
+                    })
+                    
+                }
             }
         }
 
-        this.setState({ albumsList: albumsList });
+        this.setState({ songsList: songsList });
+        console.log(this.state.songsList)
 
 
         // console.log("account: ", accounts[0]);
@@ -102,18 +108,15 @@ class Albums extends Component {
     renderCard = card => {
         const { search } = this.state;
         return (
-            <div className="card-columns text-center col d-flex justify-content-center" onClick={(e) => {
-                e.preventDefault();
-                window.location.href = '/Songs';
-            }} >
+            <div className="card-columns text-center col d-flex justify-content-center"   >
                 <div>
                     <div className="card text-white bg-dark mb-3" style={{ width: "25rem" }} >
                         <img className="card-img-top" src={card.image} alt="Card image cap" />
                         <div className="card-body">
                             <h3 className="card-text center">{card.name}</h3>
-                            <p className="card-text">{card.artist}</p>
+                            <p className="card-text">{card.duration}</p>
+                            <p className="card-text">{card.genre}</p>
                         </div>
-                        {/* <a href="#" class="btn btn-primary" ></a> */}
                     </div>
                 </div>
             </div >
@@ -125,9 +128,9 @@ class Albums extends Component {
     };
 
     render() {
-        const { search, albumsList } = this.state;
-        const filteredAlbums = albumsList.filter(album => {
-            return album.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        const { search, songsList} = this.state;
+        const filteredSongs = songsList.filter(song => {
+            return song.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
         });
         return (
             <div style={{ display: "inline-block" }} >
@@ -136,9 +139,9 @@ class Albums extends Component {
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style={{ float: "right" }}>Search</button>
                 </div>
                 <div className="card-columns " style={{ marginTop: "85px", clear: "right" }}>
-                    {/* {albumInfo.map(renderCard())} */}
-                    {filteredAlbums.map(album => {
-                        return this.renderCard(album);
+                    {/* {songInfo.map(renderCard())} */}
+                    {filteredSongs.map(song => {
+                        return this.renderCard(song);
                     })}
                 </div>
             </div >
@@ -146,6 +149,7 @@ class Albums extends Component {
     }
 
 
+
 }
 
-export default Albums;
+export default Songs;

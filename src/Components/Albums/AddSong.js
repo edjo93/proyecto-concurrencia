@@ -1,12 +1,53 @@
-import React from 'react'
-import { Component } from 'react'
-import { Card } from 'react-bootstrap'
+import React from "react";
+import { AvForm, AvField, AvInput } from "availity-reactstrap-validation";
+import Image from "react-bootstrap/Image";
 
+import {
+    Input,
+    Button,
+    Modal,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    Label,
+    Container,
+    Row,
+    Col,
+} from "reactstrap";
+
+import { Confirm } from "./Confirm";
+import "../ConfirmStyle.css";
 import getWeb3 from "../../getWeb3.js";
+import { Component } from "react";
 import AlbumContract from '../../contracts/Album.json';
 
+// let web3;
+// let accounts;
 
-class Albums extends Component {
+// const setWeb3 = async() =>{
+//    web3 = await getWeb3();
+//    accounts = await web3.eth.getAccounts();
+// }
+// const createAlbum = async (e,values) => {
+//   e.preventDefault();
+//   console.log(values);
+//   const web3 = await getWeb3();
+//   console.log(web3);
+//   // this.props.addressesCall("");
+// }; onValidSubmit={createAlbum}
+
+
+
+class AddSong extends Component {
+    createSong = async (e, values) => {
+        //Sometimes it works
+        e.preventDefault();
+        console.log(values);
+        let newInstance = await new this.state.web3.eth.Contract(AlbumContract.abi,values.select);
+        await newInstance.methods.addSong(values.song,values.duration,values.genre).send({"from":this.state.accounts[0]});
+    };
+
+
     constructor(props) {
         super(props)
         this.state = {
@@ -97,55 +138,55 @@ class Albums extends Component {
 
         // console.log(albumAddresses);
     };
-
-
-    renderCard = card => {
-        const { search } = this.state;
-        return (
-            <div className="card-columns text-center col d-flex justify-content-center" onClick={(e) => {
-                e.preventDefault();
-                window.location.href = '/Songs';
-            }} >
-                <div>
-                    <div className="card text-white bg-dark mb-3" style={{ width: "25rem" }} >
-                        <img className="card-img-top" src={card.image} alt="Card image cap" />
-                        <div className="card-body">
-                            <h3 className="card-text center">{card.name}</h3>
-                            <p className="card-text">{card.artist}</p>
-                        </div>
-                        {/* <a href="#" class="btn btn-primary" ></a> */}
-                    </div>
-                </div>
-            </div >
-        );
-    };
-
-    onchange = e => {
-        this.setState({ search: e.target.value });
-    };
-
     render() {
-        const { search, albumsList } = this.state;
-        const filteredAlbums = albumsList.filter(album => {
-            return album.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-        });
         return (
-            <div style={{ display: "inline-block" }} >
-                <div style={{ width: "250px", float: "right", clear: "both", marginTop: "20px", marginBottom: "20px", display: "inline-block" }}>
-                    <input class="form-control mr-sm-2" onChange={this.onchange} type="text" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style={{ float: "right" }}>Search</button>
-                </div>
-                <div className="card-columns " style={{ marginTop: "85px", clear: "right" }}>
-                    {/* {albumInfo.map(renderCard())} */}
-                    {filteredAlbums.map(album => {
-                        return this.renderCard(album);
-                    })}
-                </div>
-            </div >
+            <Container className="text-white">
+                <AvForm onValidSubmit={this.createSong}>
+                    <Row>
+                        <Col sm="12" md={{ size: 6, offset: 3 }}>
+                            <AvField type="select" name="select" label="Album">
+                                {this.state.albumsList.map(element=> <option key={element.id} value={element.id}>{element.name}</option>)}
+                            </AvField>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm="12" md={{ size: 6, offset: 3 }}>
+                            <AvField
+                                name="song"
+                                label="Canción"
+                                type="text"
+                                validate={{
+                                    required: { value: true, errorMessage: "campo requerido" },
+                                }}
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm="12" md={{ size: 6, offset: 3 }}>
+                            <AvField
+                                name="duration"
+                                label="Duración"
+                                type="text"
+                                validate={{
+                                    required: { value: true, errorMessage: "campo requerido" },
+                                }}
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm="12" md={{ size: 6, offset: 3 }}>
+                            <AvField name="genre" label="Género" type="text" />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm="12" md={{ size: 6, offset: 3 }}>
+                            <Button color="success">Guardar</Button>
+                        </Col>
+                    </Row>
+                </AvForm>
+            </Container>
         );
     }
-
-
 }
 
-export default Albums;
+export default AddSong;
